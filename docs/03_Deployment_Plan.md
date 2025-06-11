@@ -79,4 +79,74 @@
 ### Меры по снижению рисков:
 - Заблаговременный заказ оборудования
 - Тестирование совместимости до внедрения
-- Регулярные встречи с командой для обратной связи 
+- Регулярные встречи с командой для обратной связи
+
+
+# План внедрения Ball Survive
+
+## UML Диаграмма развертывания и компонентов
+
+```mermaid
+classDiagram
+    direction TB
+
+    %% Диаграмма компонентов
+    class DevEnvironment {
+        +Unity Engine
+        +Visual Studio
+        +Git
+        +Photoshop
+    }
+
+    class Workstation {
+        +CPU: i5/Ryzen5+
+        +RAM: 8GB+
+        +SSD: 120GB+
+    }
+
+    class VersionControl {
+        +GitHub/GitLab
+        +Code Review
+        +CI/CD
+    }
+
+    class Testing {
+        +Unit Tests
+        +Integration Tests
+        +Performance Tests
+    }
+
+    class Monitoring {
+        +Performance Tracking
+        +Error Reporting
+        +Feedback System
+    }
+
+    %% Диаграмма развертывания
+    class Developer {
+        +Рабочая станция
+        +IDE
+        +Навыки разработки
+    }
+
+    class BuildServer {
+        +CI/CD Pipeline
+        +Automated Builds
+    }
+
+    class TestEnvironment {
+        +Testing Framework
+        +Test Data
+    }
+
+    %% Связи
+    DevEnvironment "1" *-- "1..*" Workstation
+    VersionControl "1" *-- "1" DevEnvironment
+    Testing "1" *-- "1" VersionControl
+    Monitoring "1" *-- "1" Testing
+
+    Developer "1" --> "1" Workstation
+    Developer "1" --> "1" DevEnvironment
+    BuildServer "1" --> "1" VersionControl
+    TestEnvironment "1" --> "1" BuildServer
+```
