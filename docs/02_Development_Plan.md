@@ -46,3 +46,70 @@
 - Игровая механика: 1-2 дня
 - Дополнительный функционал: 1 день
 - Подготовка к релизу: 1 день
+
+
+# План разработки Ball Survive
+
+## UML Диаграмма классов
+
+```mermaid
+classDiagram
+    direction TB
+
+    class Game {
+        -player: Player
+        -obstacles: Obstacle[]
+        -timer: Timer
+        -isGameOver: boolean
+        +startGame(): void
+        +endGame(): void
+        +update(): void
+        +render(): void
+    }
+
+    class Player {
+        -position: Vector2
+        -radius: number
+        -color: string
+        +move(direction: Vector2): void
+        +checkCollision(obstacle: Obstacle): boolean
+        +draw(): void
+    }
+
+    class Obstacle {
+        -position: Vector2
+        -size: Vector2
+        -speed: number
+        -color: string
+        +update(): void
+        +draw(): void
+    }
+
+    class Timer {
+        -startTime: number
+        -currentTime: number
+        +start(): void
+        +stop(): void
+        +getElapsedTime(): number
+    }
+
+    class Vector2 {
+        -x: number
+        -y: number
+    }
+
+    class GameUI {
+        -game: Game
+        +showMainMenu(): void
+        +showPauseMenu(): void
+        +showGameOver(): void
+        +drawTimer(): void
+    }
+
+    Game "1" *-- "1" Player
+    Game "1" *-- "*" Obstacle
+    Game "1" *-- "1" Timer
+    Game "1" *-- "1" GameUI
+    Player "1" *-- "1" Vector2
+    Obstacle "1" *-- "1" Vector2
+```
